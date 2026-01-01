@@ -6,7 +6,7 @@ Smart Trash is an IoT based reminder system that helps households remember waste
 The system retrieves waste collection data from an online API and translates this information into a physical reminder inside the home.
 
 When a waste collection day is approaching, the device lights up in a specific color that represents the type of waste. The reminder remains active until the user presses a button to confirm that the waste has been taken outside.
-<img width="2180" height="1834" alt="image" src="https://github.com/user-attachments/assets/58973aea-d865-45e7-81ab-87fa1e084e8b" />
+<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/58973aea-d865-45e7-81ab-87fa1e084e8b" />
 
 
 
