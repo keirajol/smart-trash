@@ -3,14 +3,15 @@
 
 ## Introduction
 
-Smart Trash is an IoT based reminder system that helps households remember waste collection days.
+Smart Trash is an IoT-based reminder system that helps households remember waste collection days.
 The system retrieves waste collection data from an online API and translates this information into a physical reminder inside the home.
 
-When a waste collection day is approaching, the device lights up in a specific color that represents the type of waste. The reminder remains active until the user presses a button to confirm that the waste has been taken outside.
+When a waste collection day is approaching, the device lights up in a specific color that represents the type of waste. 
+The reminder stays active until the user presses a physical button to confirm that the waste has been taken outside.
 
 
 
-# Prerequisites
+## Prerequisites
 
 When following this manual, I assume that you have the following hardware & software installed. If this is not the case, please set-up your Microcontroller correctly before following this manual.
 
@@ -30,6 +31,22 @@ When following this manual, I assume that you have the following hardware & soft
 - Adafruit NeoPixel
 - ESP8266WiFi.h
 
+## Step 1 – API access
+
+Smart Trash uses the Amsterdam data API to retrieve waste collection data. To access the API, an API key is required.
+
+Register a client at:
+https://keys.api.data.amsterdam.nl/clients/v1/register/
+
+Store your API key in a separate configuration file (e.g. config.h).
+
+Never commit your API key to GitHub!!!
+
+Example:
+
+#define API_KEY "YOUR_API_KEY_HERE"
+
+## Step 2: 
 
 
 
