@@ -270,7 +270,7 @@ void setup() {
   }
 
   Serial.println("\nWiFi connected");
-  client.setInsecure(); // prototype only
+  client.setInsecure(); 
 }
 
 // Turns on green reminder light
@@ -288,7 +288,6 @@ void clearLEDs() {
   strip.show();
 }
 
-// Prototype API logic (simplified)
 void getWasteData() {
   Serial.println("Waste data received (prototype)");
   showGreenReminder();
