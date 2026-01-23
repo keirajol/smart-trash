@@ -31,7 +31,7 @@ When following this manual, I assume that you have the following hardware & soft
 - Wi-Fi credentials
 - API access key (if you dont have the API key go to step 1, otherwise go to step 1.5)
 
-![IMG_6515](https://github.com/user-attachments/assets/55ff7da1-6ad8-454e-89c6-ed4fcaa2c2dc)  
+
   
 ### Required Libraries
 
@@ -315,7 +315,7 @@ Pressing the button turns the LED strip off
 
 If this works: the prototype works!
 
-![Demo van project](welldone.gif)
+!(Images/welldone.gif)
 
 
 
