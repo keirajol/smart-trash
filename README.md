@@ -35,7 +35,7 @@ When following this manual, I assume that you have the following hardware & soft
 
 ### Required Libraries
 
-Install these libraries using Arduino IDE → Library Manager:
+Install these libraries using Arduino IDE - Library Manager:
 - ArduinoJson
 - Adafruit NeoPixel
 
@@ -55,14 +55,14 @@ Connect the LED strip as follows:
 <img src="Images/SetupLed.png" width="300">
 
 ### Testing (LED strip)
-Before doing anything with Wi-Fi or the API, I recommend testing if your LED strip works.
-First connect your board
-In Arduino IDE select:
-Tools - Board - NodeMCU 1.0 (ESP-12E Module)
-Tools - Port - (select the correct port)
+Before doing anything with Wi-Fi or the API, I recommend testing if your LED strip works. <br>
+First connect your board <br>
+In Arduino IDE select:<br>
+Tools - Board - NodeMCU 1.0 (ESP-12E Module)<br>
+Tools - Port - (select the correct port)<br>
 
 If you dont select it you get an error message:
-<img src="Images/BoardError.png" width="300">
+<img src="Images/BoardError.png" width="500">
 
 Upload this quick test sketch:
 
