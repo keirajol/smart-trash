@@ -61,8 +61,8 @@ In Arduino IDE select:<br>
 Tools - Board - NodeMCU 1.0 (ESP-12E Module)<br>
 Tools - Port - (select the correct port)<br>
 
-If you dont select it you get an error message:
-<img src="Images/BoardError.png" width="500">
+If you dont select it you get an error message: <br>
+<img src="Images/BoardError.png" width="700">
 
 Upload this quick test sketch:
 
