@@ -59,7 +59,7 @@ Before doing anything with Wi-Fi or the API, I recommend testing if your LED str
 
 Upload this quick test sketch:
 
-```cpp
+```ruby
 #include <Adafruit_NeoPixel.h>
 
 #define LED_PIN D2
@@ -104,7 +104,7 @@ Connect the button as follows with jumper wires:
 
 ### Testing (button)
 Upload this code:
-```cpp
+```ruby
 #include <Adafruit_NeoPixel.h>
 
 #define LED_PIN     4    
@@ -163,7 +163,7 @@ void loop() {
 ```
 If you push the button the led should go on and off.
 
-<img src="Images/LedButtonTest.gif" width="300">
+<img src="Images/LedButton.gif" width="300">
 
 #### Common mistakes
 - Connecting the button to the wrong pin  
@@ -180,7 +180,7 @@ Never commit your API key to GitHub!!!
 
 In the code later replace with your API key:
 
-```cpp
+```ruby
 const char* API_KEY = "YOUR_API_KEY_HERE";
 ```
 
@@ -319,7 +319,7 @@ Waste data received
 The LED strip turns green
 Pressing the button turns the LED strip off
 
-<img width="286" height="188" alt="Screenshot 2026-01-23 at 20 10 20" src="https://github.com/user-attachments/assets/e28d8cf2-d880-4528-8e76-1e2d91437f60" />
+<img src="Images/EndResult.png" width="300">
 
 If this works: the prototype works!
 
