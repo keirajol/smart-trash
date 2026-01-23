@@ -45,9 +45,9 @@ The following libraries are included by default for ESP8266 boards:
 ### 3.1: Connect ledstrip
 Connect the LED strip as follows:
 
-5V of the LED strip (red) - VIN 
+5V of the LED strip (red) - VV (vbus)
 GND of the LED strip (black) - GND 
-D of the LED strip (yellow) - D5 
+D of the LED strip (yellow) - D2
 
 ### 🤓 Testing (LED strip)
 Before doing anything with Wi-Fi or the API, I recommend testing if your LED strip works.
@@ -57,7 +57,7 @@ Upload this quick test sketch:
 ```cpp
 #include <Adafruit_NeoPixel.h>
 
-#define LED_PIN D5
+#define LED_PIN D2
 #define LED_COUNT 8
 
 Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
@@ -84,17 +84,78 @@ void loop() {
 - Forgetting to connect GND - LEDs will not work  
 - Using the wrong data pin - LED stays off  
 - Powering the LED strip incorrectly
+- Wrong LED_COUNT - only part of the strip lights up
 
 ### 3.2  Button
 Connect the button as follows with jumper wires:
 
 vcc - 3v3
 GND - GND 
-OUT - D2
+OUT - D7
+
+### Testing (button)
+Upload this code:
+```cpp
+#include <Adafruit_NeoPixel.h>
+
+#define LED_PIN     4    
+#define LED_COUNT   30
+#define BUTTON_PIN  13    
+
+Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
+
+bool ledOn = true;           
+bool lastButton = HIGH;
+unsigned long lastTime = 0;
+const unsigned long debounce = 50;
+
+void setStrip(bool on) {
+  if (on) {
+    for (int i = 0; i < LED_COUNT; i++) {
+      strip.setPixelColor(i, strip.Color(0, 255, 0));
+    }
+  } else {
+    strip.clear();
+  }
+  strip.show();
+}
+
+void setup() {
+  pinMode(BUTTON_PIN, INPUT_PULLUP);
+
+  strip.begin();
+  strip.setBrightness(100);
+
+  setStrip(true);           
+}
+
+void loop() {
+  bool reading = digitalRead(BUTTON_PIN);
+
+  if (reading != lastButton) {
+    lastTime = millis();
+    lastButton = reading;
+  }
+
+  if ((millis() - lastTime) > debounce) {
+    if (reading == LOW && lastButton == LOW) {
+      // knop is stabiel ingedrukt
+      ledOn = !ledOn;
+      setStrip(ledOn);
+
+      // wachten tot knop losgelaten is
+      while (digitalRead(BUTTON_PIN) == LOW) {
+        delay(10);
+      }
+    }
+  }
+}
+
+```
+If you push the button the led should go on and off.
 
 #### Common mistakes
 - Connecting the button to the wrong pin  
-- Forgetting to use `INPUT_PULLUP` in the code  
 - Button wired to 5V instead of 3V3  
 
 ## Step 2:API access
@@ -104,11 +165,9 @@ Smart Trash uses the Amsterdam data API to retrieve waste collection data. To ac
 Register a client at:
 https://keys.api.data.amsterdam.nl/clients/v1/register/
 
-Store your API key in a separate configuration file (e.g. config.h).
-
 Never commit your API key to GitHub!!!
 
-In the code, replace:
+In the code later replace with your API key:
 
 ```cpp
 const char* API_KEY = "YOUR_API_KEY_HERE";
@@ -131,6 +190,11 @@ Install:
 These libraries are required for:
 - Reading JSON data from the API
 - Controlling the LED strip
+
+If Arduino gives an error like:
+- ArduinoJson.h: No such file or directory
+- Adafruit_NeoPixel.h: No such file or directory
+it means the library is not installed correctly.
 
 ## Step 4: The code
 And now the hard the code. This part took a long time, but in the manual I will just post the full code below. You can copy everything, just change these 3 things:
