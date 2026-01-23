@@ -29,10 +29,10 @@ When following this manual, I assume that you have the following hardware & soft
 ### Software
 - Arduino IDE
 - Wi-Fi credentials
-- API access key (if you dont have the API key go to step 1, otherwise go to step 1.5)
+- API access key 
 
+<img src="Images/setup.png" width="300">
 
-  
 ### Required Libraries
 
 Install these libraries using Arduino IDE → Library Manager:
@@ -51,6 +51,8 @@ Connect the LED strip as follows:
 - 5V of the LED strip (red) - VV (vbus) 
 - GND of the LED strip (black) - GND 
 - D of the LED strip (yellow) - D2
+
+<img src="Images/SetupLed.png" width="300">
 
 ### 🤓 Testing (LED strip)
 Before doing anything with Wi-Fi or the API, I recommend testing if your LED strip works.
@@ -83,6 +85,8 @@ void loop() {
 }
 ```
 
+<img src="Images/LedTest.gif" width="300">
+
 #### Common mistakes
 - Forgetting to connect GND - LEDs will not work  
 - Using the wrong data pin - LED stays off  
@@ -95,6 +99,8 @@ Connect the button as follows with jumper wires:
 - vcc - 3v3
 - GND - GND 
 - OUT - D7
+
+<img src="Images/SetupButton.jpg" width="300">
 
 ### Testing (button)
 Upload this code:
@@ -156,6 +162,8 @@ void loop() {
 
 ```
 If you push the button the led should go on and off.
+
+<img src="Images/LedButton.gif" width="300">
 
 #### Common mistakes
 - Connecting the button to the wrong pin  
@@ -315,12 +323,8 @@ Pressing the button turns the LED strip off
 
 If this works: the prototype works!
 
-![well done](Images/welldone.gif)
+<img src="Images/welldone.gif" width="300">
 
 
 
-
-
-eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJzdWIiOjI0MDU0OTc0ODkzMjkyODgzODMsImV4cCI6MTc5ODgzMjkzMn0.Yj1S5WL0nyAXjuQ6N6lbvvBNiGczZlOuzU3sUxOREcgKPtoDZm71oSHIr2n4RzoHOESyrAxgw80uf2-aV2c0BA
-eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4OTk0NjcwMTg1ODY4NzcxMzg4IiwiZXhwIjoxODAwMzg2OTMwfQ.H-aJdPgkxXIhbK3Pjf_gip3Z9qH3FC3RqgfVZZ-n8HkXC57ixJFpm5DpzxrfhEMHOArC0EcIs0klfknafLrYDQ
 
