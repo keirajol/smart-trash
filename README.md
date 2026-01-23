@@ -93,7 +93,7 @@ These libraries are required for:
 
 Create a new Arduino sketch and paste everything below.
 
-```
+```ruby
 Smart Trash Code
 #include <ESP8266WiFi.h>
 #include <ArduinoJson.h>
