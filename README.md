@@ -45,7 +45,7 @@ The following libraries are included by default for ESP8266 boards:
 
 ## Step 1 – Hardware setup
 
-### 3.1: Connect ledstrip
+### 1.1: Connect ledstrip
 Connect the LED strip as follows:
 
 - 5V of the LED strip (red) - VV (vbus) 
@@ -100,7 +100,7 @@ void loop() {
 - Powering the LED strip incorrectly
 - Wrong LED_COUNT - only part of the strip lights up
 
-### 3.2  Button
+### 1.2  Button
 Connect the button as follows with jumper wires:
 
 - vcc - 3v3
