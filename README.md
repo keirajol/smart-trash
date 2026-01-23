@@ -29,10 +29,10 @@ When following this manual, I assume that you have the following hardware & soft
 ### Software
 - Arduino IDE
 - Wi-Fi credentials
-- API access key (if you dont have the API key go to step 1, otherwise go to step 1.5)
+- API access key 
 
+<img src="Images/setup.png" width="300">
 
-  
 ### Required Libraries
 
 Install these libraries using Arduino IDE → Library Manager:
