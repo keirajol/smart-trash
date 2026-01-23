@@ -52,7 +52,7 @@ Connect the LED strip as follows:
 - GND of the LED strip (black) - GND 
 - D of the LED strip (yellow) - D2
 
-![Led wiring](Images/SetupLed.png)
+<img src="Images/SetupLed.png" width="400">
 
 ### 🤓 Testing (LED strip)
 Before doing anything with Wi-Fi or the API, I recommend testing if your LED strip works.
