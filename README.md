@@ -10,11 +10,11 @@ When a waste collection day is approaching, the device lights up in a specific c
 The reminder stays active until the user presses a physical button to confirm that the waste has been taken outside.
 
 ### The manual is divided into 5 steps
-1. Connecting the LED strip and button
-2. Setting up the Waste Calendar API
-3. Installing libraries
-4. Writing the code
-5. Putting everything together
+1. Connecting the LED strip and button  
+2. Setting up the Waste Calendar API  
+3. Installing libraries  
+4. Writing the code  
+5. Uploading and testing the prototype  
 
 ## Prerequisites
 
@@ -49,12 +49,53 @@ Connect the LED strip as follows:
 GND of the LED strip (black) - GND 
 D of the LED strip (yellow) - D5 
 
+### 🤓 Testing (LED strip)
+Before doing anything with Wi-Fi or the API, I recommend testing if your LED strip works.
+
+Upload this quick test sketch:
+
+```cpp
+#include <Adafruit_NeoPixel.h>
+
+#define LED_PIN D5
+#define LED_COUNT 8
+
+Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
+
+void setup() {
+  strip.begin();
+  strip.show();
+}
+
+void loop() {
+  for (int i = 0; i < LED_COUNT; i++) {
+    strip.setPixelColor(i, strip.Color(0, 255, 0)); // green
+  }
+  strip.show();
+  delay(2000);
+
+  strip.clear();
+  strip.show();
+  delay(2000);
+}
+```
+
+#### Common mistakes
+- Forgetting to connect GND - LEDs will not work  
+- Using the wrong data pin - LED stays off  
+- Powering the LED strip incorrectly
+
 ### 3.2  Button
 Connect the button as follows with jumper wires:
 
 vcc - 3v3
 GND - GND 
 OUT - D2
+
+#### Common mistakes
+- Connecting the button to the wrong pin  
+- Forgetting to use `INPUT_PULLUP` in the code  
+- Button wired to 5V instead of 3V3  
 
 ## Step 2:API access
 
@@ -67,6 +108,16 @@ Store your API key in a separate configuration file (e.g. config.h).
 
 Never commit your API key to GitHub!!!
 
+In the code, replace:
+
+```cpp
+const char* API_KEY = "YOUR_API_KEY_HERE";
+```
+
+### Common mistakes
+- Using an expired or inactive API key
+- Forgetting to update the key in the code
+- Expecting the API to work immediately
 
 ## Step 3: Install libraries
 
@@ -82,6 +133,10 @@ These libraries are required for:
 - Controlling the LED strip
 
 ## Step 4: The code
+And now the hard the code. This part took a long time, but in the manual I will just post the full code below. You can copy everything, just change these 3 things:
+1. const char* WIFI_SSID = "YOUR_WIFI_NAME"; // replace with your network name
+2. const char* WIFI_PASSWORD = "YOUR_WIFI_PASSWORD"; // replace with your network password
+3. const char* API_KEY = "YOUR_API_KEY_HERE"; // replace with your api key
 
 Create a new Arduino sketch and paste everything below.
 
@@ -91,36 +146,24 @@ Create a new Arduino sketch and paste everything below.
 #include <ArduinoJson.h>
 #include <Adafruit_NeoPixel.h>
 
-/*************************
- * CONFIGURATION SECTION *
- *************************/
-
-const char* WIFI_SSID = "YOUR_WIFI_NAME";
-const char* WIFI_PASSWORD = "YOUR_WIFI_PASSWORD";
-const char* API_KEY = "YOUR_API_KEY_HERE";
+const char* WIFI_SSID = "YOUR_WIFI_NAME"; // replace with your network name
+const char* WIFI_PASSWORD = "YOUR_WIFI_PASSWORD"; // replace with your network password
+const char* API_KEY = "YOUR_API_KEY_HERE"; // replace with your api key
 
 #define LED_PIN     D5
-#define BUTTON_PIN  D6
+#define BUTTON_PIN  D2
 
 #define LED_COUNT 8
 #define LED_BRIGHTNESS 80
 #define UPDATE_INTERVAL 60000
 
-#define API_HOST "api.data.amsterdam.nl"
-
-/*************************
- * GLOBAL VARIABLES
- *************************/
+#define API_HOST "api.data.amsterdam.nl" // host van de API
 
 WiFiClientSecure client;
 Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
 
 bool reminderActive = false;
 unsigned long lastCheck = 0;
-
-/*************************
- * SETUP
- *************************/
 
 void setup() {
   Serial.begin(115200);
@@ -144,13 +187,9 @@ void setup() {
   client.setInsecure(); // prototype only
 }
 
-/*************************
- * LED FUNCTIONS
- *************************/
-
 void showGreenReminder() {
   for (int i = 0; i < LED_COUNT; i++) {
-    strip.setPixelColor(i, strip.Color(0, 255, 0)); // green
+    strip.setPixelColor(i, strip.Color(0, 255, 0));
   }
   strip.show();
   reminderActive = true;
@@ -161,19 +200,11 @@ void clearLEDs() {
   strip.show();
 }
 
-/*************************
- * API REQUEST (prototype)
- *************************/
-
 void getWasteData() {
   // Prototype behavior: API call simulated
   Serial.println("Waste data received");
   showGreenReminder();
 }
-
-/*************************
- * LOOP
- *************************/
 
 void loop() {
   if (!reminderActive && millis() - lastCheck > UPDATE_INTERVAL) {
@@ -191,6 +222,21 @@ void loop() {
 
 
 ```
+
+## Step 5  – Upload & test
+
+Connect the NodeMCU with your laptop.
+
+Select the correct Board and Port
+Click Upload
+
+Open Serial Monitor 
+Expected behavior
+LED strip turns green
+
+Pressing the button turns the LED off
+
+The prototype works!
 
 
 
