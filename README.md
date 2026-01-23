@@ -312,7 +312,7 @@ Pressing the button turns the LED strip off
 
 If this works: the prototype works!
 
-![Demo van project](weldone.gif)
+![Demo van project](welldone.gif)
 
 
 
