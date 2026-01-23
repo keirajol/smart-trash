@@ -315,7 +315,8 @@ Pressing the button turns the LED strip off
 
 If this works: the prototype works!
 
-!(Images/welldone.gif)
+![well done](Images/welldone.gif)
+
 
 
 
