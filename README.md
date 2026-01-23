@@ -176,6 +176,11 @@ Smart Trash uses the Amsterdam data API to retrieve waste collection data. To ac
 Register a client at:
 https://keys.api.data.amsterdam.nl/clients/v1/register/
 
+<img src="Images/APIgegevns.png" width="300">
+
+kopieer de volledige code.
+<img src="Images/APIkey" width="300">
+
 Never commit your API key to GitHub!!!
 
 In the code later replace with your API key:
