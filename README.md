@@ -312,7 +312,7 @@ Pressing the button turns the LED strip off
 
 If this works: the prototype works!
 
-<img width="384" height="200" alt="image" src="https://github.com/user-attachments/assets/1937dc9b-c30a-40f1-b049-445dcafea4a2" />
+![Demo van project](weldone.gif)
 
 
 
