@@ -289,19 +289,30 @@ void loop() {
 
 ## Step 5  – Upload & test
 
-Connect the NodeMCU with your laptop.
+Connect the NodeMCU to your laptop via USB
 
-Select the correct Board and Port
-Click Upload
+In Arduino IDE select:
+Tools - Board - NodeMCU 1.0 (ESP-12E Module)
+Tools - Port - (select the correct port)
+
+Push: CMD+U or the arrow 
 
 Open Serial Monitor 
-Expected behavior
-LED strip turns green
 
-Pressing the button turns the LED off
+### Expected behavior
 
-The prototype works!
+After connecting to Wi-Fi the Serial Monitor prints:
 
+WiFi connected
+Waste data received 
+The LED strip turns green
+Pressing the button turns the LED strip off
+
+<img width="286" height="188" alt="Screenshot 2026-01-23 at 20 10 20" src="https://github.com/user-attachments/assets/e28d8cf2-d880-4528-8e76-1e2d91437f60" />
+
+If this works: the prototype works!
+
+<img width="384" height="200" alt="image" src="https://github.com/user-attachments/assets/1937dc9b-c30a-40f1-b049-445dcafea4a2" />
 
 
 
