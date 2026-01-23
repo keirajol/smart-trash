@@ -54,8 +54,15 @@ Connect the LED strip as follows:
 
 <img src="Images/SetupLed.png" width="300">
 
-### 🤓 Testing (LED strip)
+### Testing (LED strip)
 Before doing anything with Wi-Fi or the API, I recommend testing if your LED strip works.
+First connect your board
+In Arduino IDE select:
+Tools - Board - NodeMCU 1.0 (ESP-12E Module)
+Tools - Port - (select the correct port)
+
+If you dont select it you get an error message:
+<img src="Images/BoardError.png" width="300">
 
 Upload this quick test sketch:
 
