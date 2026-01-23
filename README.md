@@ -45,9 +45,9 @@ The following libraries are included by default for ESP8266 boards:
 ### 3.1: Connect ledstrip
 Connect the LED strip as follows:
 
-5V of the LED strip (red) - VV (vbus)
-GND of the LED strip (black) - GND 
-D of the LED strip (yellow) - D2
+- 5V of the LED strip (red) - VV (vbus) 
+- GND of the LED strip (black) - GND 
+- D of the LED strip (yellow) - D2
 
 ### 🤓 Testing (LED strip)
 Before doing anything with Wi-Fi or the API, I recommend testing if your LED strip works.
@@ -89,9 +89,9 @@ void loop() {
 ### 3.2  Button
 Connect the button as follows with jumper wires:
 
-vcc - 3v3
-GND - GND 
-OUT - D7
+- vcc - 3v3
+- GND - GND 
+- OUT - D7
 
 ### Testing (button)
 Upload this code:
