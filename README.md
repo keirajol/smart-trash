@@ -335,6 +335,8 @@ Pressing the button turns the LED strip off
 
 <img src="Images/EndResult.png" width="300">
 
+The led will only turn on if its close to put the trash outside.
+
 If this works: the prototype works!
 
 <img src="Images/welldone.gif" width="300">
