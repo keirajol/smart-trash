@@ -93,6 +93,7 @@ These libraries are required for:
 
 Create a new Arduino sketch and paste everything below.
 
+```
 Smart Trash Code
 #include <ESP8266WiFi.h>
 #include <ArduinoJson.h>
@@ -169,82 +170,7 @@ void turnOffLED() {
   strip.show();
 }
 
-
-#include <ESP8266WiFi.h>
-#include <ArduinoJson.h>
-#include <Adafruit_NeoPixel.h>
-#include "config.h"
-
-#define LED_PIN D5
-#define LED_COUNT 8
-#define BUTTON_PIN D6
-
-Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
-
-bool reminderActive = false;
-
-void setup() {
-  Serial.begin(9600);
-
-  pinMode(BUTTON_PIN, INPUT_PULLUP);
-
-  strip.begin();
-  strip.show();
-
-  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
-  Serial.print("Connecting to WiFi");
-
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-
-  Serial.println("\nConnected to WiFi");
-  getWasteData();
-}
-
-void loop() {
-  if (reminderActive && digitalRead(BUTTON_PIN) == LOW) {
-    turnOffLED();
-    reminderActive = false;
-    Serial.println("Trash confirmed");
-    delay(500);
-  }
-}
-
-void getWasteData() {
-  WiFiClient client;
-  HTTPClient http;
-
-  String url = "https://api.data.amsterdam.nl/afvalwijzer/afvalkalender/";
-  http.begin(client, url);
-  http.addHeader("Authorization", "Bearer " + String(API_KEY));
-
-  int httpCode = http.GET();
-
-  if (httpCode > 0) {
-    Serial.println("Waste data received");
-    activateReminder();
-  } else {
-    Serial.println("API request failed");
-  }
-
-  http.end();
-}
-
-void activateReminder() {
-  for (int i = 0; i < LED_COUNT; i++) {
-    strip.setPixelColor(i, strip.Color(0, 255, 0)); // Green for GFT
-  }
-  strip.show();
-  reminderActive = true;
-}
-
-void turnOffLED() {
-  strip.clear();
-  strip.show();
-}
-
+```
 
 
 
