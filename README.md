@@ -163,7 +163,7 @@ void loop() {
 ```
 If you push the button the led should go on and off.
 
-<img src="Images/LedButton.gif" width="300">
+<img src="Images/LedButtonTest.gif" width="300">
 
 #### Common mistakes
 - Connecting the button to the wrong pin  
