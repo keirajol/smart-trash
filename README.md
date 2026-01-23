@@ -35,7 +35,7 @@ When following this manual, I assume that you have the following hardware & soft
 
 ### Required Libraries
 
-Install these libraries using Arduino IDE → Library Manager:
+Install these libraries using Arduino IDE - Library Manager:
 - ArduinoJson
 - Adafruit NeoPixel
 
@@ -54,8 +54,15 @@ Connect the LED strip as follows:
 
 <img src="Images/SetupLed.png" width="300">
 
-### 🤓 Testing (LED strip)
-Before doing anything with Wi-Fi or the API, I recommend testing if your LED strip works.
+### Testing (LED strip)
+Before doing anything with Wi-Fi or the API, I recommend testing if your LED strip works. <br>
+First connect your board <br>
+In Arduino IDE select:<br>
+Tools - Board - NodeMCU 1.0 (ESP-12E Module)<br>
+Tools - Port - (select the correct port)<br>
+
+If you dont select it you get an error message: <br>
+<img src="Images/BoardError.png" width="700">
 
 Upload this quick test sketch:
 
@@ -216,9 +223,9 @@ it means the library is not installed correctly.
 
 ## Step 4: The code
 And now the hard the code. This part took a long time, but in the manual I will just post the full code below. You can copy everything, just change these 3 things:
-1. const char* WIFI_SSID = "YOUR_WIFI_NAME"; // replace with your network name
-2. const char* WIFI_PASSWORD = "YOUR_WIFI_PASSWORD"; // replace with your network password
-3. const char* API_KEY = "YOUR_API_KEY_HERE"; // replace with your api key
+1. char ssid[] = "WIFI_NAME"; / place your wifi name
+2. char pass[] = "WIFI_PASSWORD"; // place your wifi password
+3. const char* API_KEY = "API_KEY_HERE"; // place your API key
 
 Create a new Arduino sketch and paste everything below.
 
@@ -228,18 +235,15 @@ Create a new Arduino sketch and paste everything below.
 #include <ArduinoJson.h>
 #include <Adafruit_NeoPixel.h>
 
-const char* WIFI_SSID = "YOUR_WIFI_NAME"; // replace with your network name
-const char* WIFI_PASSWORD = "YOUR_WIFI_PASSWORD"; // replace with your network password
-const char* API_KEY = "YOUR_API_KEY_HERE"; // replace with your api key
+char ssid[] = "WIFI_NAME"; / place your wifi name
+char pass[] = "WIFI_PASSWORD"; // place your wifi password
+const char* API_KEY = "API_KEY_HERE"; // place your API key
 
-#define LED_PIN     D5
-#define BUTTON_PIN  D2
-
-#define LED_COUNT 8
+#define LED_PIN 4
+#define BUTTON_PIN 13
+#define LED_COUNT 30
 #define LED_BRIGHTNESS 80
 #define UPDATE_INTERVAL 60000
-
-#define API_HOST "api.data.amsterdam.nl" // host van de API
 
 WiFiClientSecure client;
 Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
@@ -254,9 +258,10 @@ void setup() {
 
   strip.begin();
   strip.setBrightness(LED_BRIGHTNESS);
+  strip.clear();
   strip.show();
 
-  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  WiFi.begin(ssid, pass);  
   Serial.print("Connecting to WiFi");
 
   while (WiFi.status() != WL_CONNECTED) {
@@ -265,10 +270,10 @@ void setup() {
   }
 
   Serial.println("\nWiFi connected");
-
   client.setInsecure(); // prototype only
 }
 
+// Turns on green reminder light
 void showGreenReminder() {
   for (int i = 0; i < LED_COUNT; i++) {
     strip.setPixelColor(i, strip.Color(0, 255, 0));
@@ -277,14 +282,15 @@ void showGreenReminder() {
   reminderActive = true;
 }
 
+// Turns off the LED strip
 void clearLEDs() {
   strip.clear();
   strip.show();
 }
 
+// Prototype API logic (simplified)
 void getWasteData() {
-  // Prototype behavior: API call simulated
-  Serial.println("Waste data received");
+  Serial.println("Waste data received (prototype)");
   showGreenReminder();
 }
 
@@ -294,14 +300,16 @@ void loop() {
     getWasteData();
   }
 
+  // Button confirms the task (1 druk = uit)
   if (reminderActive && digitalRead(BUTTON_PIN) == LOW) {
     clearLEDs();
     reminderActive = false;
     Serial.println("Trash confirmed");
-    delay(500);
+
+    while (digitalRead(BUTTON_PIN) == LOW) delay(10);
+    delay(50);
   }
 }
-
 
 ```
 
