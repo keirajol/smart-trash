@@ -67,14 +67,6 @@ Store your API key in a separate configuration file (e.g. config.h).
 
 Never commit your API key to GitHub!!!
 
-### Create a config file
-Create a file called config.h in your Arduino project and add this information:
-
-#define WIFI_SSID "YOUR_WIFI_NAME"
-#define WIFI_PASSWORD "YOUR_WIFI_PASSWORD"
-#define API_KEY "YOUR_API_KEY"
-
-When the device starts, it connects to the Wi-Fi network before making the API request.
 
 ## Step 3: Install libraries
 
@@ -94,26 +86,49 @@ These libraries are required for:
 Create a new Arduino sketch and paste everything below.
 
 ```ruby
-Smart Trash Code
 #include <ESP8266WiFi.h>
+#include <WiFiClientSecure.h>
 #include <ArduinoJson.h>
 #include <Adafruit_NeoPixel.h>
-#include "config.h"
 
-#define LED_PIN D5
+/*************************
+ * CONFIGURATION SECTION *
+ *************************/
+
+const char* WIFI_SSID = "YOUR_WIFI_NAME";
+const char* WIFI_PASSWORD = "YOUR_WIFI_PASSWORD";
+const char* API_KEY = "YOUR_API_KEY_HERE";
+
+#define LED_PIN     D5
+#define BUTTON_PIN  D6
+
 #define LED_COUNT 8
-#define BUTTON_PIN D6
+#define LED_BRIGHTNESS 80
+#define UPDATE_INTERVAL 60000
 
+#define API_HOST "api.data.amsterdam.nl"
+
+/*************************
+ * GLOBAL VARIABLES
+ *************************/
+
+WiFiClientSecure client;
 Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
 
 bool reminderActive = false;
+unsigned long lastCheck = 0;
+
+/*************************
+ * SETUP
+ *************************/
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
 
   pinMode(BUTTON_PIN, INPUT_PULLUP);
 
   strip.begin();
+  strip.setBrightness(LED_BRIGHTNESS);
   strip.show();
 
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
@@ -124,51 +139,56 @@ void setup() {
     Serial.print(".");
   }
 
-  Serial.println("\nConnected to WiFi");
-  getWasteData();
+  Serial.println("\nWiFi connected");
+
+  client.setInsecure(); // prototype only
 }
 
+/*************************
+ * LED FUNCTIONS
+ *************************/
+
+void showGreenReminder() {
+  for (int i = 0; i < LED_COUNT; i++) {
+    strip.setPixelColor(i, strip.Color(0, 255, 0)); // green
+  }
+  strip.show();
+  reminderActive = true;
+}
+
+void clearLEDs() {
+  strip.clear();
+  strip.show();
+}
+
+/*************************
+ * API REQUEST (prototype)
+ *************************/
+
+void getWasteData() {
+  // Prototype behavior: API call simulated
+  Serial.println("Waste data received");
+  showGreenReminder();
+}
+
+/*************************
+ * LOOP
+ *************************/
+
 void loop() {
+  if (!reminderActive && millis() - lastCheck > UPDATE_INTERVAL) {
+    lastCheck = millis();
+    getWasteData();
+  }
+
   if (reminderActive && digitalRead(BUTTON_PIN) == LOW) {
-    turnOffLED();
+    clearLEDs();
     reminderActive = false;
     Serial.println("Trash confirmed");
     delay(500);
   }
 }
 
-void getWasteData() {
-  WiFiClient client;
-  HTTPClient http;
-
-  String url = "https://api.data.amsterdam.nl/afvalwijzer/afvalkalender/";
-  http.begin(client, url);
-  http.addHeader("Authorization", "Bearer " + String(API_KEY));
-
-  int httpCode = http.GET();
-
-  if (httpCode > 0) {
-    Serial.println("Waste data received");
-    activateReminder();
-  } else {
-    Serial.println("API request failed");
-  }
-
-  http.end();
-}
-
-void activateReminder() {
-  for (int i = 0; i < LED_COUNT; i++) {
-    strip.setPixelColor(i, strip.Color(0, 255, 0)); // Green for GFT
-  }
-  strip.show();
-  reminderActive = true;
-}
-
-void turnOffLED() {
-  strip.clear();
-  strip.show();
-}
 
 ```
 
